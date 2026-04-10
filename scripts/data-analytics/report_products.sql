@@ -1,29 +1,4 @@
-/*
-===============================================================================
-product report
-===============================================================================
-purpose:
-    - this report consolidates key product metrics and behaviors.
 
-highlights:
-    1. gathers essential fields such as product name, category, subcategory, and cost.
-    2. segments products by revenue to identify high-performers, mid-range, or low-performers.
-    3. aggregates product-level metrics:
-       - total orders
-       - total sales
-       - total quantity sold
-       - total customers (unique)
-       - lifespan (in months)
-    4. calculates valuable kpis:
-       - recency (months since last sale)
-       - average order revenue (aor)
-       - average monthly revenue
-===============================================================================
-*/
-
--- =============================================================================
--- create report: gold.report_products
--- =============================================================================
 if object_id('gold.report_products', 'v') is not null
     drop view gold.report_products;
 go
@@ -31,9 +6,7 @@ go
 create view gold.report_products as
 
 with base_query as (
-/*---------------------------------------------------------------------------
-1) base query: retrieves core columns from fact_sales and dim_products
----------------------------------------------------------------------------*/
+
     select
         f.order_number,
         f.order_date,
@@ -75,9 +48,6 @@ product_aggregations as (
         product_cost
 )
 
-/*---------------------------------------------------------------------------
-3) final query: combines all product results into one output
----------------------------------------------------------------------------*/
 select 
     product_key,
     product_name,
